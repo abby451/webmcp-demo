@@ -1,6 +1,550 @@
 <!DOCTYPE html>
-<html>
-  <body>
-    <h1>Hello, this is my demo</h1>
-  </body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Schedule a Demo | Acme</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #f7f6f3;
+      --surface:   #ffffff;
+      --border:    #e4e2dc;
+      --text:      #1a1917;
+      --muted:     #8a8880;
+      --accent:    #1a1917;
+      --accent-lt: #f0efe9;
+      --success:   #2d6a4f;
+      --radius:    10px;
+      --shadow:    0 2px 12px rgba(0,0,0,0.07);
+    }
+
+    html { font-size: 16px; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Header ── */
+    header {
+      padding: 24px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.4rem;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .logo span {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      margin-left: 3px;
+      vertical-align: super;
+    }
+
+    nav a {
+      font-size: 0.85rem;
+      color: var(--muted);
+      text-decoration: none;
+      margin-left: 28px;
+      letter-spacing: 0.01em;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: var(--text); }
+
+    /* ── Main layout ── */
+    main {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      max-width: 1080px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 64px 40px;
+      gap: 80px;
+      align-items: start;
+    }
+
+    /* ── Left panel ── */
+    .intro {
+      position: sticky;
+      top: 64px;
+    }
+
+    .tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: var(--accent-lt);
+      border: 1px solid var(--border);
+      padding: 5px 12px;
+      border-radius: 100px;
+      margin-bottom: 24px;
+    }
+
+    .intro h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.8rem;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+    }
+
+    .intro h1 em {
+      font-style: italic;
+      color: var(--muted);
+    }
+
+    .intro p {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--muted);
+      max-width: 360px;
+      margin-bottom: 40px;
+    }
+
+    .proof {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .proof-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+
+    .proof-item::before {
+      content: '';
+      display: block;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--accent-lt);
+      border: 1px solid var(--border);
+      flex-shrink: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M2.5 6l2.5 2.5 4.5-5' stroke='%231a1917' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    /* ── Form panel ── */
+    .form-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 40px;
+      box-shadow: var(--shadow);
+    }
+
+    .form-card h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.4rem;
+      margin-bottom: 6px;
+      letter-spacing: -0.02em;
+    }
+
+    .form-card .subtitle {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 32px;
+      line-height: 1.5;
+    }
+
+    /* ── WebMCP form ── */
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    label {
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    input, select, textarea {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 300;
+      color: var(--text);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 10px 14px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      width: 100%;
+    }
+
+    input::placeholder, textarea::placeholder { color: #c0bdb6; }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--text);
+      box-shadow: 0 0 0 3px rgba(26,25,23,0.07);
+    }
+
+    select { appearance: none; cursor: pointer; }
+
+    textarea { resize: vertical; min-height: 90px; }
+
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 4px 0;
+    }
+
+    /* ── Submit button ── */
+    .submit-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      padding: 14px 24px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.15s;
+      margin-top: 4px;
+    }
+
+    .submit-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+    .submit-btn:active { transform: translateY(0); }
+
+    .submit-btn svg { width: 16px; height: 16px; }
+
+    /* ── Success overlay ── */
+    .success-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(247,246,243,0.9);
+      backdrop-filter: blur(6px);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .success-overlay.active { display: flex; }
+
+    .success-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 52px 48px;
+      max-width: 420px;
+      text-align: center;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.1);
+      animation: popIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0.92); opacity: 0; }
+      to   { transform: scale(1);    opacity: 1; }
+    }
+
+    .success-icon {
+      width: 52px;
+      height: 52px;
+      background: var(--accent-lt);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+    }
+
+    .success-card h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.6rem;
+      margin-bottom: 10px;
+      letter-spacing: -0.02em;
+    }
+
+    .success-card p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+
+    .close-btn {
+      background: var(--accent-lt);
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: var(--radius);
+      padding: 10px 24px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .close-btn:hover { background: var(--border); }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 24px;
+      font-size: 0.78rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 780px) {
+      main { grid-template-columns: 1fr; padding: 40px 24px; gap: 40px; }
+      .intro { position: static; }
+      .intro h1 { font-size: 2.2rem; }
+      .row { grid-template-columns: 1fr; }
+      header { padding: 20px 24px; }
+      nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <a class="logo" href="#">Acme<span></span></a>
+    <nav>
+      <a href="#">Product</a>
+      <a href="#">Pricing</a>
+      <a href="#">Customers</a>
+      <a href="#">Docs</a>
+    </nav>
+  </header>
+
+  <!-- Main -->
+  <main>
+
+    <!-- Left: intro copy -->
+    <div class="intro">
+      <div class="tag">Book a demo</div>
+      <h1>See what Acme can do <em>for your team</em></h1>
+      <p>In 30 minutes, we'll walk you through exactly how Acme fits your workflow — no fluff, no sales theatre. Just the parts that matter to you.</p>
+      <div class="proof">
+        <div class="proof-item">Personalised to your use case</div>
+        <div class="proof-item">Live Q&amp;A with a product specialist</div>
+        <div class="proof-item">No commitment required</div>
+        <div class="proof-item">Confirmation sent within 1 business hour</div>
+      </div>
+    </div>
+
+    <!-- Right: form card -->
+    <div class="form-card">
+      <h2>Request your demo</h2>
+      <p class="subtitle">Fill in your details and we'll be in touch to confirm a time.</p>
+
+      <!--
+        WebMCP declarative tool attributes:
+        - toolname:        machine-readable identifier for the AI agent
+        - tooldescription: plain-English description so the agent knows what this form does
+        Note: toolautosubmit is intentionally omitted — the human clicks submit
+      -->
+      <form
+        id="demoForm"
+        toolname="schedule_demo"
+        tooldescription="Schedule a personalised product demo with a member of the Acme team. The agent should collect the prospect's contact details, company context, preferred time, and what they want to see in the demo."
+      >
+
+        <!-- Row 1: name + company -->
+        <div class="row">
+          <div class="field">
+            <label for="fullName">Full name</label>
+            <input
+              type="text"
+              id="fullName"
+              name="full_name"
+              placeholder="Jane Smith"
+              required
+              toolparamdescription="The prospect's full name"
+            />
+          </div>
+          <div class="field">
+            <label for="company">Company</label>
+            <input
+              type="text"
+              id="company"
+              name="company"
+              placeholder="Acme Corp"
+              required
+              toolparamdescription="The name of the prospect's company or organisation"
+            />
+          </div>
+        </div>
+
+        <!-- Row 2: role + team size -->
+        <div class="row">
+          <div class="field">
+            <label for="jobTitle">Job title</label>
+            <input
+              type="text"
+              id="jobTitle"
+              name="job_title"
+              placeholder="Head of Operations"
+              toolparamdescription="The prospect's job title or role within their company"
+            />
+          </div>
+          <div class="field">
+            <label for="teamSize">Team size</label>
+            <select
+              id="teamSize"
+              name="team_size"
+              required
+              toolparamdescription="The size of the prospect's team or company — choose the closest range"
+            >
+              <option value="" disabled selected>Select range</option>
+              <option value="1-10">1–10 employees</option>
+              <option value="11-50">11–50 employees</option>
+              <option value="51-200">51–200 employees</option>
+              <option value="201-1000">201–1,000 employees</option>
+              <option value="1000+">1,000+ employees</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Row 3: email + phone -->
+        <div class="row">
+          <div class="field">
+            <label for="email">Work email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="jane@company.com"
+              required
+              toolparamdescription="The prospect's work email address — used to send the demo confirmation"
+            />
+          </div>
+          <div class="field">
+            <label for="phone">Phone number</label>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              placeholder="+44 7700 000000"
+              toolparamdescription="The prospect's phone number including country code (optional)"
+            />
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Preferred date & time -->
+        <div class="field">
+          <label for="preferredDate">Preferred date &amp; time</label>
+          <input
+            type="datetime-local"
+            id="preferredDate"
+            name="preferred_datetime"
+            required
+            toolparamdescription="The prospect's preferred date and time for the demo — must be a future date and time"
+          />
+        </div>
+
+        <!-- Use case -->
+        <div class="field">
+          <label for="useCase">What would you like to see?</label>
+          <textarea
+            id="useCase"
+            name="use_case"
+            placeholder="e.g. We're looking to automate our onboarding workflow and integrate with Salesforce…"
+            toolparamdescription="A brief description of the prospect's use case, challenge, or the specific features they want to see demonstrated"
+          ></textarea>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" class="submit-btn">
+          Request demo
+          <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+
+      </form>
+    </div>
+
+  </main>
+
+  <!-- Success overlay -->
+  <div class="success-overlay" id="successOverlay">
+    <div class="success-card">
+      <div class="success-icon">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+          <path d="M4 11l5 5 9-9" stroke="#1a1917" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h3>You're booked in</h3>
+      <p>Thanks for reaching out. A member of our team will confirm your demo within one business hour.</p>
+      <button class="close-btn" onclick="closeSuccess()">Back to site</button>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 Acme Inc. · <a href="#" style="color:inherit;">Privacy</a> · <a href="#" style="color:inherit;">Terms</a>
+  </footer>
+
+  <script>
+    document.getElementById('demoForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      document.getElementById('successOverlay').classList.add('active');
+    });
+
+    function closeSuccess() {
+      document.getElementById('successOverlay').classList.remove('active');
+      document.getElementById('demoForm').reset();
+    }
+  </script>
+
+</body>
 </html>
